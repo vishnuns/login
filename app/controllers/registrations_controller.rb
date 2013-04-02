@@ -5,13 +5,18 @@ class RegistrationsController < ApplicationController
 	def login
 		username=params[:username]
 		password=params[:password]
-		user=Registration.where(:username=>username).first
-		if user.password==password
-			session[:username]=username
-			flash[:notice]="Login Successful!"
-			redirect_to :controller=>"registrations",:action=>"secret"
+		if username=="" ||  password==""
+			flash[:error]="Please fill all fields!"
+			redirect_to "/"	
 		else
-			redirect_to :controller=>"registrations",:action=>"index",:error=>"Login Unsuccessful"
+			user=Registration.where(:username=>username).first
+			if user.password==password
+				session[:username]=username
+				flash[:notice]="Login Successful!"
+				redirect_to :controller=>"registrations",:action=>"secret"
+			else
+				redirect_to :controller=>"registrations",:action=>"index",:error=>"Login Unsuccessful"
+			end
 		end
 	end
 	def secret
