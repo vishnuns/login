@@ -1,0 +1,18 @@
+- if flash[:error]
+        %p{style: "color:red;"}
+                = flash[:error]
+- elsif flash[:notice]
+        %p(style="color:green;")
+                = flash[:notice]
+
+%h2 Login
+=form_tag "/registrations/login",:method=>"POST" do
+        %p
+                Username
+                = text_field_tag "username",""
+        %p
+                Password
+                =password_field_tag "password",""
+        %p
+                = submit_tag "Login"
+

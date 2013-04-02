@@ -1,0 +1,17 @@
+class RegistrationsController < ApplicationController
+	def index
+	end
+	
+	def login
+		username=params[:username]
+		password=params[:password]
+		user=Registration.where(:username=>username)
+		if user.password==password
+			redirect_to :controller=>"registrations",:action=>"secret",:notice=>"Login Successful"
+		else
+			redirect_to :controller=>"registrations",:action=>"index",:error=>"Login Unsuccessful"
+		end
+	end
+	def secret
+	end
+end
